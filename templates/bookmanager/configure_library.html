@@ -1,0 +1,81 @@
+{% extends './base.html' %}
+
+{% block content %}
+<div class="my-4">
+    <h2>Configure Library</h2>
+
+    <!-- Button to Redirect to Add Level Form -->
+    <a href="{% url 'add_library_level' %}" class="btn btn-primary mb-3">Add Level</a>
+
+    <!-- List Existing Library Levels -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tbody>
+                {% for level in library_levels %}
+                <tr class="level-row">
+                    <th>Level</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                <tr class="level-row">
+                    <td>{{ level.level_number }}</td>
+                    <td>{{ level.description }}</td>
+                    <td>
+                        <!-- Button to Add Shelves to the Level -->
+                        <a href="{% url 'add_shelf' level.id %}" class="btn btn-sm btn-outline-primary">Add Shelf</a>
+                        <!-- Button to Add Sections to the Level -->
+                        <a href="{% url 'add_section' level.id %}" class="btn btn-sm btn-outline-success ml-2">Add Section</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h5>Shelves on this Level:</h5>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Shelf Number</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                                {% for shelf in level.shelves.all %}
+                                <tr>
+                                    <td>{{ shelf.shelf_number }}</td>
+                                    <td>{{ shelf.description }}</td>
+                                    <td>
+                                        <!-- Link to Edit Shelf -->
+                                        <a href="{% url 'edit_shelf' shelf.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a href="{% url 'delete_shelf' shelf.id %}" class="btn btn-sm btn-outline-danger ml-2">Delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <h5 class="mt-3">Sections on this Level:</h5>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Section Name</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                                {% for section in level.sections.all %}
+                                <tr>
+                                    <td>{{ section.name }}</td>
+                                    <td>{{ section.description }}</td>
+                                    <td>
+                                        <!-- Links to Edit/Delete Section -->
+                                        <a href="{% url 'edit_section' section.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a href="{% url 'delete_section' section.id %}" class="btn btn-sm btn-outline-danger ml-2">Delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
