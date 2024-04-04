@@ -18,3 +18,5 @@ experience in locating books.
 The use of occupancy sensors facilitates the creation of dynamic heat maps. These
 maps assist users in identifying less crowded areas, optimizing space utilization within
 the library.
+
+The file Smart-Library represents the backend and the JSON file contains the NODE-RED UI flows of the application.
